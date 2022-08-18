@@ -25,5 +25,5 @@ public class Team extends BaseTimeEntity {
 
     private LocalDateTime asOfDate;
 
-
+    private Integer winningRate;
 }

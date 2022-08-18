@@ -21,6 +21,12 @@ public class User extends BaseTimeEntity {
     public User() {
     }
 
+    public User(String username, Gender gender, String password) {
+        this.username = username;
+        this.gender = gender;
+        this.password = password;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teamCode")
     private Team team;
