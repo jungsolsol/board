@@ -49,7 +49,7 @@ public class UserService {
 
 
     @Transactional
-    public void update(String username, String password) {
+    public Long update(String username, String password) {
         Optional<User> findUser = userRepository.findByUsernameAndPassword(username, password);
 
         findUser.ifPresent(selectUser -> {
@@ -57,6 +57,7 @@ public class UserService {
             selectUser.setPassword(password);
             userRepository.save(selectUser);
         });
+        return findUser.get().getId();
     }
 
 

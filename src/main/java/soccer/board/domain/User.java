@@ -1,15 +1,17 @@
 package soccer.board.domain;
 
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import soccer.board.audit.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Setter
+@Getter
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,13 +20,24 @@ public class User extends BaseTimeEntity {
 
     private Integer level;
 
+    @OneToMany(mappedBy = "user")
+    private List<Board> board = new ArrayList<>();
     public User() {
     }
 
-    public User(String username, Gender gender, String password) {
+    public User(Long id, Integer level, List<Board> board, Team team, String username, Gender gender, String password, String phoneNumber, Integer age, MemberDetails memberDetails, Boolean haveTeam, Boolean isDeleted) {
+        this.id = id;
+        this.level = level;
+        this.board = board;
+        this.team = team;
         this.username = username;
         this.gender = gender;
         this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.memberDetails = memberDetails;
+        this.haveTeam = haveTeam;
+        this.isDeleted = isDeleted;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +47,6 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, length = 15)
     private String username; //ID
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Gender gender;
     @Column(nullable = false, length = 30)
     private String password;
@@ -43,52 +55,8 @@ public class User extends BaseTimeEntity {
     private Integer age;
 
     @Embedded
-    private MemberDetails memberDetails;
+    private MemberDetails memberDetails ;
     private Boolean haveTeam;
     private Boolean isDeleted;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public Boolean getHaveTeam() {
-        return haveTeam;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
