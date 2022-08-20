@@ -16,7 +16,7 @@ public class InitDb {
     @PostConstruct
     public void init() {
         initService.dbInit1();
-
+        initService.dbInit2();
     }
 
     @Component
@@ -37,6 +37,12 @@ public class InitDb {
 //            em.persist(userD);
 //            User userE = createUser("userE", "1234", Gender.Male, new MemberDetails(MemberPosition.b, new Address("a", "b", "c"), Status.level1));
 //            em.persist(userE);
+        }
+
+        public void dbInit2() {
+            Post post = new Post("absbdsv", "solsol", "hyehye", 1);
+            em.persist(post);
+
         }
 
         private User createUser(String username, String password, Gender gender) {

@@ -1,12 +1,10 @@
 package soccer.board.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soccer.board.domain.Gender;
 import soccer.board.domain.User;
-import soccer.board.repository.UserRepository;
+import soccer.board.repository.User.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

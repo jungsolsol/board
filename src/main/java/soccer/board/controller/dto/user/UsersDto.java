@@ -1,7 +1,6 @@
-package soccer.board.controller;
+package soccer.board.controller.dto.user;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 import soccer.board.domain.Gender;
 import soccer.board.domain.Team;
 import soccer.board.domain.User;

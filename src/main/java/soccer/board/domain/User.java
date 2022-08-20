@@ -54,6 +54,9 @@ public class User extends BaseTimeEntity {
 
     private Integer age;
 
+    @OneToMany(mappedBy = "user")
+    private List<Post> post = new ArrayList<>();
+
     @Embedded
     private MemberDetails memberDetails ;
     private Boolean haveTeam;

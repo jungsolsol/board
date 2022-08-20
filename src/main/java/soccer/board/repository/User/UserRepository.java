@@ -1,4 +1,4 @@
-package soccer.board.repository;
+package soccer.board.repository.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import soccer.board.domain.User;

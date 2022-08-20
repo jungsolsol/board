@@ -1,16 +1,15 @@
 package soccer.board.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import soccer.board.controller.dto.user.UserDetailDto;
+import soccer.board.controller.dto.user.UsersDto;
 import soccer.board.domain.User;
-import soccer.board.repository.UserRepository;
+import soccer.board.repository.User.UserRepository;
 import soccer.board.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,4 +47,6 @@ public class HomeController {
     @RequestParam("password") String password) {
         return ResponseEntity.ok().body(userService.update(username,password));
     }
+
+
 }

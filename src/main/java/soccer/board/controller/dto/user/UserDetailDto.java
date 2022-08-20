@@ -1,4 +1,4 @@
-package soccer.board.controller;
+package soccer.board.controller.dto.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
