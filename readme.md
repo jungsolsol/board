@@ -80,5 +80,9 @@
 * GET /api/post/search
 #### 삭제기능
 * DELETE /api/post/delete/{id}
+#### 파일업로드 기능
+* POST /api/post/upload
+#### 파일다운로드 기능
+* GET /api/post/download/{fileName:.+}
 
 # 댓글 API
