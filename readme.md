@@ -79,5 +79,5 @@
 #### 검색기능
 * GET /api/post/search
 #### 삭제기능
-# DELETE /api/post/delete/{id}
+* DELETE /api/post/delete/{id}
 
