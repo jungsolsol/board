@@ -64,7 +64,7 @@
 # 4. DB 설계
 
 # 5. API설계
-
+# 게시판 API
 #### 업로드 기능
 * POST /api/post
 #### 업데이트 기능
@@ -81,3 +81,4 @@
 #### 삭제기능
 * DELETE /api/post/delete/{id}
 
+# 댓글 API
