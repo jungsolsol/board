@@ -5,11 +5,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import soccer.board.controller.dto.post.PostRequestDto;
 import soccer.board.controller.dto.post.PostResponseDto;
+import soccer.board.domain.Post;
 import soccer.board.repository.Post.PostRepository;
 import soccer.board.service.post.PostServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +19,8 @@ public class PostController {
 
     private final PostServiceImpl postService;
     private final PostRepository postRepository;
+
+
 
     @PostMapping("/api/post")
     public PostResponseDto savePost(@RequestBody @Validated PostRequestDto postRequestDto) {
@@ -27,15 +31,19 @@ public class PostController {
                 postRequestDto.toEntity().getView());
     }
 
-//    @PutMapping("/api/post/{id}")
-//    public PostResponseDto updatePost(@PathVariable("id") Long id, @RequestBody, PostRequestDto postRequestDto) {
-//        postService.update(id, postRequestDto);
-//    }
+
+    @PutMapping("/api/post/{id}")
+    public PostResponseDto updatePost(@PathVariable("id") Long id, @RequestBody @Validated PostRequestDto postRequestDto) {
+        postService.update(id, postRequestDto);
+        Optional<Post> findPost = postRepository.findById(id);
+        Post post = findPost.get();
+
+        return new PostResponseDto(post.getTitle(), post.getContents(), post.getAuthor(), post.getView());
+    }
 
     @GetMapping("/api/post/board")
     public List<PostRequestDto> getPostList() {
         List<PostRequestDto> postList = postService.getPostList();
-
         return postList;
     }
 
@@ -44,6 +52,7 @@ public class PostController {
         PostRequestDto post = postService.getPostById(id);
         return new PostResponseDto(post.getTitle(), post.getContents(), post.getAuthor(), post.getView());
     }
+
     @GetMapping("/api/post/author/{author}")
     public List<PostResponseDto> getPostByFindByAuthor(@PathVariable("author") String author) {
         List<PostRequestDto> postByAuthor = postService.getPostByAuthor(author);
@@ -57,5 +66,20 @@ public class PostController {
         return postResponseDtos;
     }
 
+    @GetMapping("/api/post/search")
+    public List<PostResponseDto> getPostByKeywordSearch(@RequestParam(value = "keyword") String keyword) {
+        List<PostRequestDto> request = postService.searchPost(keyword);
+        List<PostResponseDto> response = new ArrayList<>();
+        for (PostRequestDto postRequestDto : request) {
+            PostResponseDto postResponseDto = PostResponseDto.builder().author(postRequestDto.getAuthor()).contents(postRequestDto.getContents()).
+                    title(postRequestDto.getTitle()).view(postRequestDto.getView()).build();
+            response.add(postResponseDto);
+        }
+        return response;
+    }
 
+    @DeleteMapping("/api/post/delete/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        postService.deletePost(id);
+    }
 }

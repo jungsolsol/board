@@ -20,7 +20,7 @@ public interface PostService {
 
     public void deletePost(Long id);
 
-    public List<PostResponseDto> searchPost(String title);
+    public List<PostRequestDto> searchPost(String title);
 
     public void update(Long id, PostRequestDto postRequestDto);
 

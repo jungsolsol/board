@@ -1,6 +1,7 @@
 package soccer.board.repository.Post;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import soccer.board.domain.Post;
 
 import javax.persistence.EntityManager;
@@ -16,8 +17,6 @@ public class CustomPostRepositoryImpl implements CustomPostRepository{
 
     }
 
-    @Override
-    public List<Post> findByTitleContaining(String title) {
-        return null;
-    }
+
+
 }

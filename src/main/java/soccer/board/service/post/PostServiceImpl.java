@@ -45,9 +45,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public PostRequestDto getPostById(Long id) {
         Optional<Post> byId = postRepository.findById(id);
         Post post = byId.get();
+        post.increaseViewCount();
+        postRepository.save(post);
         return PostRequestDto.builder().title(post.getTitle())
                 .author(post.getAuthor()).contents(post.getContents()).view(post.getView()).build();
     }
@@ -71,15 +74,29 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    @Transactional
     @Override
-    public List<PostResponseDto> searchPost(String title) {
-        postRepository.findByTitleContaining(title);
-        return null;
+    public List<PostRequestDto> searchPost(String keyword) {
+        List<Post> searchList = postRepository.findByTitleContaining(keyword);
+        List<PostRequestDto> requestDtos = new ArrayList<>();
+
+        for (Post post : searchList) {
+            PostRequestDto postRequestDto = PostRequestDto.builder().title(post.getTitle()).author(post.getAuthor()).
+                    view(post.getView()).contents(post.getContents()).build();
+            requestDtos.add(postRequestDto);
+        }
+        return requestDtos;
 
     }
 
+    @Transactional
     @Override
     public void update(Long id, PostRequestDto postRequestDto) {
+
+        Optional<Post> byId = postRepository.findById(id);
+        Post post = byId.get();
+        post.updatePost(postRequestDto.getTitle(), postRequestDto.getContents(), postRequestDto.getAuthor(), postRequestDto.getView());
+        postRepository.save(post);
 
     }
 }

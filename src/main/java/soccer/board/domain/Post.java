@@ -36,4 +36,23 @@ public class Post {
     }
 
 
+    //연관관계 메서드
+
+    /**
+     업데이트
+     */
+    public void updatePost(String title, String contents, String author, Integer view) {
+        this.title = title;
+        this.contents = contents;
+        this.author = author;
+        this.view = view;
+    }
+
+    /**
+     조회수 증가
+     */
+    public void increaseViewCount() {
+        this.view++;
+    }
+
 }
