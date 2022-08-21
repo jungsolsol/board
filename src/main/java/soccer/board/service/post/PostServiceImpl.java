@@ -1,6 +1,9 @@
 package soccer.board.service.post;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import soccer.board.controller.dto.post.PostRequestDto;
@@ -99,4 +102,16 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
 
     }
+//
+//    @Override
+//    public Page<PostRequestDto> findAllPaging(int page) {
+//        PageRequest pageRequest = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "id"));
+//        Page<Post> pageMap = postRepository.findAll(pageRequest);
+//
+//        Page<PostRequestDto> map = pageMap.map(p -> new PostRequestDto(p));
+//        return map;
+//    }
+
+
+
 }

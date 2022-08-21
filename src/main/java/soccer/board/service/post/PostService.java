@@ -1,8 +1,8 @@
 package soccer.board.service.post;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import soccer.board.controller.dto.post.PostRequestDto;
-import soccer.board.controller.dto.post.PostResponseDto;
 
 import java.util.List;
 
@@ -23,5 +23,7 @@ public interface PostService {
     public List<PostRequestDto> searchPost(String title);
 
     public void update(Long id, PostRequestDto postRequestDto);
+
+//    public Page<PostRequestDto> findAllPaging(int page);
 
 }

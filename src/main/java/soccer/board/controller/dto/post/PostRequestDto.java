@@ -3,10 +3,10 @@ package soccer.board.controller.dto.post;
 import lombok.*;
 import soccer.board.domain.Post;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PostRequestDto {
 
     private Long id;
@@ -14,8 +14,12 @@ public class PostRequestDto {
     private String contents;
     private String author;
     private Integer view;
-
+//
+//    public PostRequestDto() {
+//
+//    }
     @Builder
+
     public PostRequestDto(String title, String contents, String author, Integer view) {
         this.title = title;
         this.contents = contents;
@@ -24,8 +28,9 @@ public class PostRequestDto {
     }
 
 
+
     public Post toEntity() {
         return Post.builder().
-        title(this.title).contents(this.contents).author(this.author).view(this.view).build();
+                title(this.title).contents(this.contents).author(this.author).view(this.view).build();
     }
 }

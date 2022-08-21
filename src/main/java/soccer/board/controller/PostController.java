@@ -1,6 +1,7 @@
 package soccer.board.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import soccer.board.controller.dto.post.PostRequestDto;
@@ -12,6 +13,7 @@ import soccer.board.service.post.PostServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,6 +48,13 @@ public class PostController {
         List<PostRequestDto> postList = postService.getPostList();
         return postList;
     }
+
+//    @GetMapping("/api/post/board")
+//    public List<PostResponseDto> getPostListPaging(@RequestParam(defaultValue = "0") int page) {
+//        Page<PostRequestDto> findAllPaging = postService.findAllPaging(page);
+//        List<PostResponseDto> responseDtos = findAllPaging.stream().map(p -> new PostResponseDto(p.getTitle(),p.getContents(),p.getAuthor(),p.getView())).collect(Collectors.toList());
+//        return responseDtos;
+//    }
 
     @GetMapping("/api/post/{id}")
     public PostResponseDto getPostByFindById(@PathVariable("id") Long id) {
