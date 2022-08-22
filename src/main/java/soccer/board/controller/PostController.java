@@ -2,12 +2,17 @@ package soccer.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import soccer.board.controller.dto.post.PostRequestDto;
 import soccer.board.controller.dto.post.PostResponseDto;
 import soccer.board.domain.Post;
 import soccer.board.repository.Post.PostRepository;
+import soccer.board.service.file.FileService;
 import soccer.board.service.post.PostServiceImpl;
 
 import java.util.ArrayList;
@@ -22,7 +27,24 @@ public class PostController {
     private final PostServiceImpl postService;
     private final PostRepository postRepository;
 
+    private final FileService fileService;
 
+
+
+//    @PostMapping("/api/post")
+//    public PostResponseDto savePost(@RequestBody @Validated PostRequestDto postRequestDto, MultipartFile file) {
+//        postService.savePost(postRequestDto);
+//        String fileName = fileService.storeFile(file);
+//        if (file.isEmpty()) {
+//            return null;
+//        }
+//
+//
+//        return new PostResponseDto(postRequestDto.toEntity().getTitle(),
+//                postRequestDto.toEntity().getContents(),
+//                postRequestDto.toEntity().getAuthor(),
+//                postRequestDto.toEntity().getView());
+//    }
 
     @PostMapping("/api/post")
     public PostResponseDto savePost(@RequestBody @Validated PostRequestDto postRequestDto) {
@@ -31,8 +53,8 @@ public class PostController {
                 postRequestDto.toEntity().getContents(),
                 postRequestDto.toEntity().getAuthor(),
                 postRequestDto.toEntity().getView());
-    }
 
+    }
 
     @PutMapping("/api/post/{id}")
     public PostResponseDto updatePost(@PathVariable("id") Long id, @RequestBody @Validated PostRequestDto postRequestDto) {

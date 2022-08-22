@@ -41,12 +41,12 @@ public class HomeController {
     }
 
 
-    //u
-    @PutMapping("/users/{username}/update")
-    public ResponseEntity<Long> userDetailsFindByUsernameUpdate(@PathVariable("username") String username,
-    @RequestParam("password") String password) {
-        return ResponseEntity.ok().body(userService.update(username,password));
-    }
+//    //u
+//    @PutMapping("/users/{username}/update")
+//    public ResponseEntity<Long> userDetailsFindByUsernameUpdate(@PathVariable("username") String username,
+//    @RequestParam("password") String password) {
+//        return ResponseEntity.ok().body(userService.update(username,password));
+//    }
 
 
 }

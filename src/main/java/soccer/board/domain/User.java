@@ -1,16 +1,18 @@
 package soccer.board.domain;
 
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import soccer.board.audit.BaseTimeEntity;
+import soccer.board.controller.dto.user.UserFormDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Setter
 @Getter
 public class User extends BaseTimeEntity {
     @Id
@@ -46,6 +48,11 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false, length = 15)
     private String username; //ID
+
+    @Column(nullable = false, length = 15)
+    private String name;// 실명
+
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Column(nullable = false, length = 30)
@@ -55,11 +62,41 @@ public class User extends BaseTimeEntity {
     private Integer age;
 
     @OneToMany(mappedBy = "user")
-    private List<Post> post = new ArrayList<>();
+    private List<Post> postList = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Embedded
     private MemberDetails memberDetails ;
     private Boolean haveTeam;
     private Boolean isDeleted;
 
+
+    @Builder
+    public User(String name, String username, String password, String phoneNumber, Integer age,Role role) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.role = role;
+    }
+
+
+    //연관관계 메서드
+
+    public String getRole() {
+        this.role = role;
+        return role.toString();
+    }
+
+    /**
+     * 회원가입 양식
+     */
+    public static User createUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
+        User user = User.builder().name(userFormDto.getName()).age(userFormDto.getAge()).phoneNumber(userFormDto.getPhoneNumber())
+                .username(userFormDto.getUsername()).password(passwordEncoder.encode(userFormDto.getPassword())).build();
+
+        return user;
+    }
 }

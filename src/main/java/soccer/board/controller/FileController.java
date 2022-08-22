@@ -36,6 +36,7 @@ public class FileController {
         }
 
         String URI = ServletUriComponentsBuilder.fromCurrentContextPath().path("/desktop/").path(file.getName()).toUriString();
+        System.out.println("URI = " + URI + "fileName = " + fileName);
         return new ResponseEntity<>(URI, HttpStatus.OK);
     }
 

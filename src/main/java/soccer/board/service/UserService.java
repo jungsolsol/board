@@ -17,10 +17,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     private void duplicateMemberValidation(User user) {
-        List<User> findByUsername = userRepository.findByUsername(user.getUsername());
+        User findByPhoneNumber = userRepository.findByPhoneNumber(user.getPhoneNumber());
 
-        if (!findByUsername.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 아이디입니다");
+        if (findByPhoneNumber != null) {
+            throw new IllegalStateException("이미 존재하는 번호입니다");
         }
     }
 
@@ -42,21 +42,6 @@ public class UserService {
         return findUser;
     }
 
-
-
-
-
-    @Transactional
-    public Long update(String username, String password) {
-        Optional<User> findUser = userRepository.findByUsernameAndPassword(username, password);
-
-        findUser.ifPresent(selectUser -> {
-            selectUser.setUsername(username);
-            selectUser.setPassword(password);
-            userRepository.save(selectUser);
-        });
-        return findUser.get().getId();
-    }
 
 
     @Transactional
